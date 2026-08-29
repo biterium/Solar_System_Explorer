@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Unbounded", "IBM Plex Sans", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Consolas", monospace;
+
+  --color-void: #04070f;
+  --color-hull: #0a1120;
+  --color-panel: #0c1424;
+  --color-ink: #dbe6f8;
+  --color-dim: #8a99b8;
+  --color-solar: #f6b04d;
+  --color-solar-hot: #ffd489;
+  --color-ice: #7fd6f2;
+  --color-ember: #e07a50;
+
+  --animate-panel-in: panel-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateX(26px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes blink-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #04070f;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(246, 176, 77, 0.35);
+  color: #fff;
+}
+
+/* ---------- range sliders ---------- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(138, 153, 184, 0.28);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--color-solar);
+  border: 3px solid #0a1120;
+  box-shadow: 0 0 10px rgba(246, 176, 77, 0.65);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 16px rgba(246, 176, 77, 0.9);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--color-solar);
+  border: 3px solid #0a1120;
+  box-shadow: 0 0 10px rgba(246, 176, 77, 0.65);
+}
+input[type="range"].ice::-webkit-slider-thumb {
+  background: var(--color-ice);
+  box-shadow: 0 0 10px rgba(127, 214, 242, 0.65);
+}
+input[type="range"].ice::-moz-range-thumb {
+  background: var(--color-ice);
+  box-shadow: 0 0 10px rgba(127, 214, 242, 0.65);
+}
+
+/* ---------- thin scrollbar for chip row ---------- */
+.chip-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 153, 184, 0.35) transparent;
+}
+.chip-scroll::-webkit-scrollbar { height: 4px; }
+.chip-scroll::-webkit-scrollbar-thumb { background: rgba(138, 153, 184, 0.35); border-radius: 4px; }
+.chip-scroll::-webkit-scrollbar-track { background: transparent; }
+
+.blink-dot { animation: blink-dot 1.6s ease-in-out infinite; }
+
+.hud-corner {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  border-color: rgba(127, 214, 242, 0.35);
+  pointer-events: none;
+  z-index: 20;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+  }
+}
